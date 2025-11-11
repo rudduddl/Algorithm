@@ -1,4 +1,5 @@
 import sys
+from collections import Counter
 
 n = int(sys.stdin.readline())
 
@@ -12,18 +13,19 @@ datas.sort()
 print(round(sum(datas) / len(datas)))
 print(datas[len(datas)//2])
 
-counts = {}
-for i in datas:
-    if i in counts:
-        counts[i] += 1
-    else:
-        counts[i] = 1
-mx = max(counts.values())
+counter = Counter(datas)
+
+most_common_list = counter.most_common()
+
+max_freq = most_common_list[0][1]
+
 max_list = []
 
-for i in counts:
-    if mx == counts[i]:
-        max_list.append(i)
+for item, freq in most_common_list:
+    if freq == max_freq:
+        max_list.append(item)
+    else:
+        break
         
 if len(max_list) > 1:
     print(max_list[1])
